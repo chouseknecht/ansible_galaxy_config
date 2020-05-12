@@ -10,3 +10,7 @@ Variables
 * `pulp_default_admin_password`: Initial password for the Pulp admin. Defaults to "password".
 * `pulp_api_host`: Host for connecting to the Pulp API server. Defaults to "127.0.0.1".
 * `pulp_api_port`: Port used for connecting to the Pulp API server. Defaults to "24817".
+
+License
+-------
+[MIT / BSD](./LICENSE)
