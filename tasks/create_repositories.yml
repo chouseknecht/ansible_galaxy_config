@@ -2,7 +2,7 @@
   uri:
     url: "http://{{ pulp_api_host }}:{{ pulp_api_port }}/pulp/api/v3/repositories/ansible/ansible/?name={{ main_item.name }}"
     user: "{{ pulp_admin_username }}"
-    password: "{{ pulp_default_admin_password }}" 
+    password: "{{ pulp_default_admin_password }}"
     force_basic_auth: yes
     status_code: 200
   register: repository_exists_response
@@ -16,10 +16,10 @@
       description: "{{ main_item.description }}"
     body_format: json
     user: "{{ pulp_admin_username }}"
-    password: "{{ pulp_default_admin_password }}" 
+    password: "{{ pulp_default_admin_password }}"
     force_basic_auth: yes
     status_code: 201
-  register: repository_created_response 
+  register: repository_created_response
   when: repository_exists_response.json.count == 0
 
 - debug:
@@ -36,7 +36,7 @@
       repository: "http://{{ pulp_api_host }}:{{ pulp_api_port }}{{ repository_created_response.json.pulp_href }}"
     body_format: json
     user: "{{ pulp_admin_username }}"
-    password: "{{ pulp_default_admin_password }}" 
+    password: "{{ pulp_default_admin_password }}"
     force_basic_auth: yes
     status_code: 202
   register: distribution_created_response
