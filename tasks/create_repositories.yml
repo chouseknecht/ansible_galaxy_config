@@ -1,0 +1,47 @@
+- name: Check if repository exists
+  uri:
+    url: "http://{{ galaxy_server }}:{{ galaxy_pulp_port }}/pulp/api/v3/repositories/ansible/ansible/?name={{ main_item.name }}"
+    user: "{{ galaxy_username }}"
+    password: "{{ galaxy_password }}" 
+    force_basic_auth: yes
+    status_code: 200
+  register: repository_exists_response
+
+- name: Create repository
+  uri:
+    url: "http://{{ galaxy_server }}:{{ galaxy_pulp_port }}/pulp/api/v3/repositories/ansible/ansible/"
+    method: POST
+    body:
+      name: "{{ main_item.name }}"
+      description: "{{ main_item.description }}"
+    body_format: json
+    user: "{{ galaxy_username }}"
+    password: "{{ galaxy_password }}" 
+    force_basic_auth: yes
+    status_code: 201
+  register: repository_created_response 
+  when: repository_exists_response.json.count == 0
+
+- debug:
+    msg: "{{ repository_created_response.json }}"
+  when: repository_exists_response.json.count == 0
+
+- name: Create distribution
+  uri:
+    url: "http://{{ galaxy_server }}:{{ galaxy_pulp_port }}/pulp/api/v3/distributions/ansible/ansible/"
+    method: POST
+    body:
+      base_path: "{{ main_item.base_path }}"
+      name: "{{ main_item.name }}"
+      repository: "http://{{ galaxy_server }}:{{ galaxy_pulp_port }}{{ repository_created_response.json.pulp_href }}"
+    body_format: json
+    user: "{{ galaxy_username }}"
+    password: "{{ galaxy_password }}" 
+    force_basic_auth: yes
+    status_code: 202
+  register: distribution_created_response
+  when: repository_exists_response.json.count == 0
+
+- debug:
+    msg: "{{ distribution_created_response.json }}"
+  when: repository_exists_response.json.count == 0

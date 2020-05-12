@@ -1,0 +1,14 @@
+- name: Test that Pulp is available
+  uri:
+    url: "http://{{ galaxy_server }}:{{ galaxy_pulp_port }}/pulp/api/v3/repositories/ansible/ansible/"
+    user: "{{ galaxy_username }}"
+    password: "{{ galaxy_password }}" 
+    force_basic_auth: yes
+    status_code: 200
+
+- name: Create default repositories
+  include_tasks: create_repositories.yml
+  loop:
+    - { name: 'foobara', description: 'Foobara content repository', base_path: 'automation-hub' }
+  loop_control:
+    loop_var: main_item
