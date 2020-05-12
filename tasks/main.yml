@@ -1,8 +1,8 @@
 - name: Test that Pulp is available
   uri:
-    url: "http://{{ galaxy_server }}:{{ galaxy_pulp_port }}/pulp/api/v3/repositories/ansible/ansible/"
-    user: "{{ galaxy_username }}"
-    password: "{{ galaxy_password }}" 
+    url: "http://{{ pulp_api_host }}:{{ pulp_api_port }}/pulp/api/v3/repositories/ansible/ansible/"
+    user: "{{ pulp_admin_username }}"
+    password: "{{ pulp_default_admin_password }}" 
     force_basic_auth: yes
     status_code: 200
 
