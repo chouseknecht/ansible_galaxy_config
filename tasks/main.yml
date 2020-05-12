@@ -9,6 +9,14 @@
 - name: Create default repositories
   include_tasks: create_repositories.yml
   loop:
-    - { name: 'foobara', description: 'Foobara content repository', base_path: 'automation-hub' }
+    - { name: 'automation-hub', description: 'Certified content repository', base_path: 'automation-hub' }
   loop_control:
     loop_var: main_item
+
+- name: Create the default group and assign to the admin user
+  command: '{{ pulp_install_dir }}/bin/pulpcore-manager create-group system:partner-engineer --users admin'
+  no_log: true
+  become: true
+  become_user: '{{ pulp_user }}'
+  environment:
+    PULP_SETTINGS: "{{ pulp_settings_file }}"
