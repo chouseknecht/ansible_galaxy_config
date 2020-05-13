@@ -1,4 +1,4 @@
 all:
   hosts:
-    <ip address here>:
+    52.4.218.32:
       ansible_user: centos

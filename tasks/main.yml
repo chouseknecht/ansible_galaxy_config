@@ -14,7 +14,7 @@
     loop_var: main_item
 
 - name: Create the default group and assign to the admin user
-  command: '{{ pulp_install_dir }}/bin/pulpcore-manager create-group system:partner-engineer --users admin'
+  command: '{{ pulp_install_dir }}/bin/pulpcore-manager create-group system:partner-engineers --users admin'
   no_log: true
   become: true
   become_user: '{{ pulp_user }}'
