@@ -20,6 +20,7 @@
     force_basic_auth: yes
     status_code: 201
   register: repository_created_response
+  run_once: true
   when: repository_exists_response.json.count == 0
 
 - debug:
