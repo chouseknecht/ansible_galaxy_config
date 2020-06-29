@@ -1,10 +1,18 @@
-- name: Test that Pulp is available
+- name: Ensure Pulp is up and healthy
   uri:
-    url: "http://{{ pulp_api_host }}:{{ pulp_api_port }}/pulp/api/v3/repositories/ansible/ansible/"
+    url: "http://{{ pulp_api_host }}:{{ pulp_api_port }}/pulp/api/v3/status/"
     user: "{{ pulp_admin_username }}"
-    password: "{{ pulp_default_admin_password }}" 
+    password: "{{ pulp_default_admin_password }}"
     force_basic_auth: yes
     status_code: 200
+  register: result
+  until: >
+    result.json.database_connection.connected == true and
+    result.json.redis_connection.connected == true and
+    result.json.online_workers | selectattr('name', 'equalto', 'resource-manager') | list | count > 0 and
+    result.json.online_workers | selectattr('name', 'match', '^[0-9]+@.*$') | list | count > 0
+  delay: 2
+  retries: 60
 
 - name: Create default repositories
   include_tasks: create_repositories.yml
