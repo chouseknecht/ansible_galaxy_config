@@ -9,8 +9,8 @@
   until: >
     result.json.database_connection.connected == true and
     result.json.redis_connection.connected == true and
-    result.json.online_workers | selectattr('name', 'equalto', 'resource-manager') | list | count > 0 and
-    result.json.online_workers | selectattr('name', 'match', '^[0-9]+@.*$') | list | count > 0
+    result.json.online_workers | map(attribute='name') | select('match', '^resource-manager$') | list | count > 0 and
+    result.json.online_workers | map(attribute='name') | select('match', '^[0-9]+@.*$') | list | count > 0
   delay: 2
   retries: 60
 
