@@ -4,8 +4,8 @@
       url: "http://{{ pulp_api_host }}:{{ pulp_api_port }}/pulp/api/v3/distributions/ansible/ansible/"
       method: POST
       body:
-        base_path: "{{ main_item.base_path }}-{{ 10000 | random }}"
-        name: "{{ main_item.name }}-{{ 10000 | random }}"
+        base_path: "{{ main_item.base_path }}"
+        name: "{{ main_item.name }}"
         repository: "http://{{ pulp_api_host }}:{{ pulp_api_port }}{{ repository_created_response.json.pulp_href }}"
       body_format: json
       user: "{{ pulp_admin_username }}"
