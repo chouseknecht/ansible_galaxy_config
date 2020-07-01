@@ -23,7 +23,8 @@
   run_once: true
   when: repository_exists_response.json.count == 0
 
-- debug:
+- name: Repository creation task results
+  debug:
     msg: "{{ repository_created_response.json }}"
   when: repository_exists_response.json.count == 0
 
@@ -33,7 +34,7 @@
   delay: 2
   retries: 60
 
-- name: Repository creation task
+- name: Distribution creation task
   debug:
     msg: "{{ distribution_created_response.json }}"
   when: repository_exists_response.json.count == 0
