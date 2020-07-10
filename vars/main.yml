@@ -1,1 +1,5 @@
 pulp_admin_username: admin
+pulp_ansible_repositories:
+  - name: 'automation-hub'
+    description: 'Certified content repository'
+    base_path: 'automation-hub'
