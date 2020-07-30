@@ -7,6 +7,7 @@
     status_code: 200
   register: result
   until: >
+    'json' in result and
     result.json.database_connection.connected == true and
     result.json.redis_connection.connected == true and
     result.json.online_workers | map(attribute='name') | select('match', '^resource-manager$') | list | count > 0 and
