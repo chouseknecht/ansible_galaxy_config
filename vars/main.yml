@@ -1,8 +1,8 @@
 pulp_admin_username: admin
 pulp_ansible_repositories:
-  - name: 'automation-hub'
+  - name: 'published'
     description: 'Certified content repository'
-    base_path: 'automation-hub'
+    base_path: 'published'
   - name: 'staging'
     description: 'Inbound staging repository'
     base_path: 'staging'
