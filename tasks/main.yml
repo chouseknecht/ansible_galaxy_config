@@ -42,3 +42,9 @@
   become_user: '{{ pulp_user }}'
   environment:
     PULP_SETTINGS: "{{ pulp_settings_file }}"
+
+- name: Insure tar is available for galaxy-importer
+  package:
+    name: tar
+    state: present
+  become: true
