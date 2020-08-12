@@ -1,5 +1,6 @@
 ---
-dependencies: []
+dependencies:
+  "pulp.squeezer": ">=0.0.2"
 
 galaxy_info:
   author: chouseknecht 
